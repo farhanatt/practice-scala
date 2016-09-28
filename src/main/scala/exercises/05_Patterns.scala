@@ -31,8 +31,15 @@ object PatternMatching {
    * For expected solution see @PatternMatchingTest
    *************************************************************************/
 
-  def describeLanguage(s: String): String = {
-    error("fix me")
+  def describeLanguage(s: String): String = s match {
+    case "Java" => "OOP"
+    case "Smalltalk" => "OOP"
+    case "Clojure" => "Functional"
+    case "Haskell" => "Functional"
+    case "Scala" => "Hybrid"
+    case "C" => "Procedural"
+    case "Oz" => "Unknown"
+    // error("fix me")
   }
 
   /**
@@ -55,8 +62,22 @@ object PatternMatching {
    *        
    *    - anything else, the function result is "Some Scala class"
    */
-  def matchOnInputType(in: Any): String = {
-    error("fix me")
+  def matchOnInputType(in: Any): String = in match {
+    case y: String => "A string with length ".concat(y.length().toString())
+    case y: Int => "A positive integer"
+    case y: Person => "A person with name: ".concat(y.name)
+    case y: Range if (y.toList.length > 10) => "Seq with more than 10 elements"
+    case y: Range if (y.toList.length >= 3) => greaterThanThree(y.toList)
+    case null => "A null value"
+    "Some Scala class"
+    // error("fix me")
+  }
+
+  def greaterThanThree(in: List[Any]): String = {
+    val first = in(0)
+    val second = in(1)
+    val tail = in.slice(2, in.size-1)
+    "first: $first, second: $second, rest: $tail"
   }
 
   /**
@@ -64,7 +85,10 @@ object PatternMatching {
    *    otherwise return `None`
    */
   def older(p: Person): Option[String] = {
-    error("fix me")
+    val name: Option[String] = Some(p.name)
+    if (p.age > 30) name
+    else None
+    // error("fix me")
   }
 }
 
