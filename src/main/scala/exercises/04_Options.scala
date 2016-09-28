@@ -34,7 +34,11 @@ object Options {
    * - does not exist: 					"not existing"
    */
   def roomState(rooms: Map[Int, Option[String]], room: Int): String = {
-    error("Fix me")
+    val status: Option[String] = rooms(room)
+    if (status == "locked") return "not available"
+    if (status == None) return "empty"
+    else return status.get
+    error("not existing")
   }
 
   /**
