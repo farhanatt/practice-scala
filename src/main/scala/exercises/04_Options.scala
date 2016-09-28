@@ -35,10 +35,16 @@ object Options {
    */
   def roomState(rooms: Map[Int, Option[String]], room: Int): String = {
     val status: Option[String] = rooms(room)
-    if (status == "locked") return "not available"
-    if (status == None) return "empty"
-    else return status.get
-    error("not existing")
+    try {
+      println("IF CASE")
+      if (status == Some("locked")) return "not available"
+      if (status == None) return "empty"
+      else return status.getOrElse("not existing")
+    } catch {
+      case e: NoSuchElementException => {
+        return "not existing"
+      }
+    }
   }
 
   /**
@@ -48,6 +54,16 @@ object Options {
    * to convert a possible numeric String (e.g. Some("12")) to an integer
    */
   def totalPeopleInRooms(rooms: Map[Int, Option[String]]): Int = {
-    error("Fix me")
+    var total = 0
+    rooms foreach(x => total += optionStringToInt(x._2))
+    return total
+  }
+
+  def optionStringToInt(option: Option[String]): Int = {
+    try {
+      option.get.toInt
+    } catch{
+      case e: Exception => 0
+    }
   }
 }
