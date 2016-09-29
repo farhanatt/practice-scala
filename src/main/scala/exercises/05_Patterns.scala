@@ -67,17 +67,17 @@ object PatternMatching {
     case y: Int => "A positive integer"
     case y: Person => "A person with name: ".concat(y.name)
     case y: Range if (y.toList.length > 10) => "Seq with more than 10 elements"
-    case y: Range if (y.toList.length >= 3) => greaterThanThree(y.toList)
+    case y: Seq[Any] if (y.length >= 3) => s"first: ${y(0)}, second: ${y(1)}, rest: ${y drop 2}"
     case null => "A null value"
-    "Some Scala class"
-    // error("fix me")
+    case _ => "Some Scala class"
   }
 
   def greaterThanThree(in: List[Any]): String = {
     val first = in(0)
     val second = in(1)
-    val tail = in.slice(2, in.size-1)
-    "first: $first, second: $second, rest: $tail"
+    val tail = in.slice(2, in.size)
+
+    return s"first: $first, second: $second, rest: $tail"
   }
 
   /**

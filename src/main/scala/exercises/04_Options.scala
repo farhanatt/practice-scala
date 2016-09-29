@@ -34,17 +34,15 @@ object Options {
    * - does not exist: 					"not existing"
    */
   def roomState(rooms: Map[Int, Option[String]], room: Int): String = {
-    val status: Option[String] = rooms(room)
-    try {
-      println("IF CASE")
-      if (status == Some("locked")) return "not available"
-      if (status == None) return "empty"
-      else return status.getOrElse("not existing")
-    } catch {
-      case e: NoSuchElementException => {
-        return "not existing"
-      }
+    val status: Option[Option[String]] = rooms.get(room)
+    if (status != None) {
+      if (status == Some(Some("locked"))) return "not available"
+      if (status == Some(None)) return "empty"
+      else return rooms.get(room).get.get
+    } else {
+      "not existing"
     }
+    
   }
 
   /**

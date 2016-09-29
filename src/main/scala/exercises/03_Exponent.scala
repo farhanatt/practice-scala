@@ -15,7 +15,7 @@ object Exponent {
    * use it to implement `expt`
    */
   def expt(n: Int, e: Int): Int = {
-    if (e == 0) return 1
+    if (e == 0) 1
     n * expt(n, e-1)
   }
 
